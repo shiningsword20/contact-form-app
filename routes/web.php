@@ -11,4 +11,3 @@ Route::post('/contacts/confirm', [ContactController::class, 'confirm']);
 Route::post('/contacts', [ContactController::class, 'store']);
 // サンクスページ
 Route::get('/thanks', [ContactController::class, 'thanks']);
-

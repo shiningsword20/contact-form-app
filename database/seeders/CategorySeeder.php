@@ -17,7 +17,7 @@ class CategorySeeder extends Seeder
             'その他',
         ];
 
-        foreach($contents as $content) {
+        foreach ($contents as $content) {
             Category::create([
                 'content' => $content,
             ]);
