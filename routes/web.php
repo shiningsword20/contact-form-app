@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 // ユーザー側
@@ -22,5 +23,13 @@ Route::get('/thanks', [ContactController::class, 'thanks']);
         Route::get('/admin/contacts/{contact}', [AdminController::class, 'show']);
         // お問い合わせ内容削除
         Route::delete('/admin/contacts/{contact}', [AdminController::class, 'destroy']);
+        // タグの追加
+        Route::post('/admin/tags', [TagController::class, 'store']);
+        // タグの編集
+        Route::get('/admin/tags/{tag}/edit', [TagController::class, 'edit']);
+        // タグの更新
+        Route::put('/admin/tags/{tag}', [TagController::class, 'update']);
+        // タグの削除
+        Route::delete('/admin/tags/{tag}', [TagController::class, 'destroy']);
 });
 
