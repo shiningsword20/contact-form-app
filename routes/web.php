@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,6 @@ Route::get('/thanks', [ContactController::class, 'thanks']);
 
 // 管理者側
 // 管理画面表示
-// Route::get('/admin', )
+    Route::middleware('auth')->group(function () {
+        Route::get('/admin', [AdminController::class, 'index']);
+    });
