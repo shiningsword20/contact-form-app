@@ -39,4 +39,16 @@ class AdminController extends Controller
                 'tags' => $tags,
                 'contacts' => $contacts]);
     }
+
+    public function show($contact)
+    {
+        $contact = Contact::with(['category', 'tags'])->findOrFail($contact);
+        return view('admin.show', ['contact' => $contact]);
+    }
+
+    public function destroy($contact)
+    {
+        Contact::findOrFail($contact)->delete();
+        return redirect('/admin');
+    }
 }
