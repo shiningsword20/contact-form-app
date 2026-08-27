@@ -12,12 +12,14 @@ class TagController extends Controller
     {
         $validated = $request->validated();
         Tag::create($validated);
+
         return redirect('/admin');
     }
 
     public function edit($tag)
     {
         $tag = Tag::findOrFail($tag);
+
         return view('admin.tags.edit', ['tag' => $tag]);
     }
 
@@ -27,12 +29,14 @@ class TagController extends Controller
         $tag = Tag::findOrFail($tag);
         $tag->name = $validated['name'];
         $tag->save();
+
         return redirect('/admin');
     }
 
     public function destroy($tag)
     {
         Tag::findOrFail($tag)->delete();
+
         return redirect('/admin');
     }
 }

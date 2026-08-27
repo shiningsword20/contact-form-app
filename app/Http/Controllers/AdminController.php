@@ -6,7 +6,6 @@ use App\Http\Requests\IndexContactRequest;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Tag;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -26,29 +25,31 @@ class AdminController extends Controller
             ->when($request->filled('gender') && $request->gender != 0, function ($query) use ($request) {
                 $query->where('gender', $request->gender);
             })
-            ->when($request->filled('category_id'), function($query) use($request) {
+            ->when($request->filled('category_id'), function ($query) use ($request) {
                 $query->where('category_id', $request->category_id);
             })
-            ->when($request->filled('date'), function($query) use($request) {
+            ->when($request->filled('date'), function ($query) use ($request) {
                 $query->whereDate('created_at', $request->date);
             })
             ->latest()->paginate(7);
 
-            return view('admin.index', [
-                'categories' => $categories,
-                'tags' => $tags,
-                'contacts' => $contacts]);
+        return view('admin.index', [
+            'categories' => $categories,
+            'tags' => $tags,
+            'contacts' => $contacts]);
     }
 
     public function show($contact)
     {
         $contact = Contact::with(['category', 'tags'])->findOrFail($contact);
+
         return view('admin.show', ['contact' => $contact]);
     }
 
     public function destroy($contact)
     {
         Contact::findOrFail($contact)->delete();
+
         return redirect('/admin');
     }
 }

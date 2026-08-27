@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ExportContactRequest;
 use App\Http\Requests\StoreContactRequest;
 use App\Models\Category;
 use App\Models\Contact;
@@ -47,5 +48,28 @@ class ContactController extends Controller
     public function thanks()
     {
         return view('contact.thanks');
+    }
+
+    public function export(ExportContactRequest $request)
+    {
+        $contacts = Contact::with(['category', 'tags'])
+            ->when($request->filled('keyword'), function ($query) use ($request) {
+                $keyword = $request->keyword;
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('first_name', 'like', "%{$keyword}%")
+                        ->orWhere('last_name', 'like', "%{$keyword}%")
+                        ->orWhere('email', 'like', "%{$keyword}%");
+                });
+            })
+            ->when($request->filled('gender') && $request->gender != 0, function ($query) use ($request) {
+                $query->where('gender', $request->gender);
+            })
+            ->when($request->filled('category_id'), function ($query) use ($request) {
+                $query->where('category_id', $request->category_id);
+            })
+            ->when($request->filled('date'), function ($query) use ($request) {
+                $query->whereDate('created_at', $request->date);
+            })
+            ->latest()->get();
     }
 }
