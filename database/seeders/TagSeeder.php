@@ -14,10 +14,10 @@ class TagSeeder extends Seeder
             '要望',
             '不具合報告',
             'ご意見',
-            'その他'
+            'その他',
         ];
 
-        foreach($names as $name) {
+        foreach ($names as $name) {
             Tag::create([
                 'name' => $name,
             ]);
