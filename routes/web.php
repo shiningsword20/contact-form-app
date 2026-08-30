@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,5 +15,12 @@ Route::post('/contacts', [ContactController::class, 'store']);
 Route::get('/thanks', [ContactController::class, 'thanks']);
 
 // 管理者側
-// 管理画面表示
-// Route::get('/admin', )
+    Route::middleware('auth')->group(function () {
+        // 管理画面表示
+        Route::get('/admin', [AdminController::class, 'index']);
+        // お問い合わせ詳細画面表示
+        Route::get('/admin/contacts/{contact}', [AdminController::class, 'show']);
+        // お問い合わせ内容削除
+        Route::delete('/admin/contacts/{contact}', [AdminController::class, 'destroy']);
+});
+
