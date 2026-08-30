@@ -46,20 +46,20 @@ cd contact-form-app
 
 2. `.env` ファイルを作成し、環境に応じて設定する
 
-\`\`\`bash
+```bash
 cp .env.example .env
-\`\`\`
+```
 
 `.env` 内のDB接続情報が、以下になっていることを確認してください（Sail標準のデフォルト値です）。
 
-\`\`\`
+```
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
 DB_DATABASE=laravel
 DB_USERNAME=sail
 DB_PASSWORD=password
-\`\`\`
+```
 
 3. Composerの依存パッケージをインストールする
 
@@ -94,7 +94,7 @@ sail artisan migrate --seed
 | メールアドレス | test@example.com |
 | パスワード     | password         |
 
-7. フロントエンド資材をビルドする
+7. CSSやJavaScriptを画面で使える状態にする
 
 ```bash
 sail npm install
