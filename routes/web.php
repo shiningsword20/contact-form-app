@@ -12,7 +12,7 @@ Route::get('/', [ContactController::class, 'index']);
 Route::post('/contacts/confirm', [ContactController::class, 'confirm']);
 // お問い合わせフォーム内容を登録
 Route::post('/contacts', [ContactController::class, 'store']);
-// サンクスページhy王子
+// サンクスページ表示
 Route::get('/thanks', [ContactController::class, 'thanks']);
 
 // 管理者側
@@ -31,6 +31,4 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/tags/{tag}', [TagController::class, 'update']);
     // タグの削除
     Route::delete('/admin/tags/{tag}', [TagController::class, 'destroy']);
-    // CSVエクスポート
-    Route::get('/contacts/export', [ContactController::class, 'export']);
 });
